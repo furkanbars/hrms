@@ -5,38 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "Employers")
+@Table(name = "employers")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employer {
 	@Id
-	@Column(name = "UserId")
+	@Column(name = "user_id")
 	private int userId;
 	
-	@Column(name = "CompanyName")
+	@Column(name = "company_name")
 	private String companyName;
 	
-	@Column(name = "WebAddress")
+	@Column(name = "web_address")
 	private String webAddress;
 	
-	@Column(name = "PhoneNumber")
+	@Column(name = "phone_number")
 	private long phoneNumber;
 	
-	@Column(name = "IsActivated")
+	@Column(name = "is_activated")
 	private boolean isActivated;
-	
-	public Employer() {
-		
-	}
-	
-	public Employer(int userId, String companyName, String webAddress, long phoneNumber, boolean isActivated) {
-		super();
-		this.userId = userId;
-		this.companyName = companyName;
-		this.webAddress = webAddress;
-		this.phoneNumber = phoneNumber;
-		this.isActivated = isActivated;
-	}
 }

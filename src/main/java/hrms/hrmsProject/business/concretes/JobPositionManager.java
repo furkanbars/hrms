@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hrms.hrmsProject.business.abstracts.JobPositionService;
+import hrms.hrmsProject.core.utilities.Results.DataResult;
+import hrms.hrmsProject.core.utilities.Results.ErrorResult;
+import hrms.hrmsProject.core.utilities.Results.Result;
+import hrms.hrmsProject.core.utilities.Results.SuccessDataResult;
+import hrms.hrmsProject.core.utilities.Results.SuccessResult;
 import hrms.hrmsProject.dataAccess.abstracts.JobPositionDao;
 import hrms.hrmsProject.entities.concretes.Job;
 
@@ -20,8 +25,17 @@ public class JobPositionManager implements JobPositionService{
 	}
 	
 	@Override
-	public List<Job> GetAll() {
-		return this.jobPositionDao.findAll();
+	public DataResult<List<Job>> GetAll() {
+		return new SuccessDataResult<List<Job>>(this.jobPositionDao.findAll()); 
+	}
+
+	@Override
+	public Result Add(Job job) {
+		if (this.jobPositionDao.findByName(job.getName())!=null){
+			return new ErrorResult("Exist already job position");
+		}
+		this.jobPositionDao.save(job);
+		return new SuccessResult("Eklendi!");
 	}
 
 }

@@ -1,42 +1,42 @@
 package hrms.hrmsProject.entities.concretes;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "ActivationCodes")
+@Table(name = "activation_codes")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ActivationCode {
 	@Id
-	@GeneratedValue
-	@Column(name = "Id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "ActivationCode")
+	@Column(name = "user_id")
+	private int userId;
+	
+	@Column(name = "activation_code")
 	private String activationCode;
 	
-	@Column(name = "IsConfirmed")
+	@Column(name = "is_confirmed")
 	private boolean isConfirmed;
 	
-	@Column(name = "ConfirmedDate")
-	private Date ConfirmedDate;
+	@Column(name = "confirmed_date")
+	private LocalDate confirmedDate=LocalDate.now();
 	
-	public ActivationCode() {
+	public ActivationCode(int userId,String activationCode,LocalDate date){
 		
-	}
-	
-	public ActivationCode(int id, String activationCode, boolean isConfirmed, Date confirmedDate) {
-		super();
-		this.id = id;
-		this.activationCode = activationCode;
-		this.isConfirmed = isConfirmed;
-		ConfirmedDate = confirmedDate;
 	}
 }
