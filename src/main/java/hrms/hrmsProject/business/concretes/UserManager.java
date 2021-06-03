@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import hrms.hrmsProject.business.abstracts.UserService;
 import hrms.hrmsProject.core.utilities.Results.DataResult;
+import hrms.hrmsProject.core.utilities.Results.ErrorDataResult;
 import hrms.hrmsProject.core.utilities.Results.SuccessDataResult;
 import hrms.hrmsProject.dataAccess.abstracts.UserDao;
 import hrms.hrmsProject.entities.concretes.User;
@@ -21,7 +22,10 @@ public class UserManager implements UserService {
 	@Override
 	public DataResult<User> getByEmail(String email) {
 		var result=userDao.getByEmail(email);
-		return new SuccessDataResult<User>(result);
+		if (result!=null) {
+			return new SuccessDataResult<User>(result);
+		}
+		return new ErrorDataResult<User>("Email bulunamadı!");
 	}
 
 }

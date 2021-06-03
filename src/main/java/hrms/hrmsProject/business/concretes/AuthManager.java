@@ -20,6 +20,7 @@ import hrms.hrmsProject.entities.concretes.Employer;
 import hrms.hrmsProject.entities.concretes.JobSeeker;
 import hrms.hrmsProject.entities.concretes.dtos.RegisterForEmployerDto;
 import hrms.hrmsProject.entities.concretes.dtos.RegisterForJobSeekerDto;
+import lombok.var;
 
 @Service
 public class AuthManager implements AuthService{
@@ -52,15 +53,15 @@ public class AuthManager implements AuthService{
 			return new ErrorResult("Bu TC kimlik numarası zaten mevcut!");
 		}
 		if (checkIfEmailExist(registerForJobSeekerDto.getEmail())) {
-			return new ErrorResult("Bu email zaten mevcut!");
+			return new ErrorResult("Bu email adresi zaten mevcut!");
 		}
-		if (registerForJobSeekerDto.getPassword()!=registerForJobSeekerDto.getPasswordRep()) {
+		if (!registerForJobSeekerDto.getPassword().equals(registerForJobSeekerDto.getPasswordRep())) {
 			return new ErrorResult("Parola doğrulama hatalı!");
 		}
 		JobSeeker jobSeeker=setJobSeeker(registerForJobSeekerDto);
 		this.jobSeekerService.add(jobSeeker);
 	 	String code = VerificationManager.sendCode();
-		verificationCodeRecord(code,jobSeeker.getUserId(),registerForJobSeekerDto.getEmail());
+		verificationCodeRecord(code,jobSeeker.getId(),jobSeeker.getEmail());
 		return new SuccessResult("Kayıt olundu.");
 	}
 	
@@ -72,17 +73,28 @@ public class AuthManager implements AuthService{
 		if (checkIfEmailExist(registerForEmployerDto.getEmail())) {
 			return new ErrorResult("Bu email adresi zaten mevcut!");
 		}
-		if (registerForEmployerDto.getPassword()!=registerForEmployerDto.getPasswordRep()) {
+		if (!registerForEmployerDto.getPassword().equals(registerForEmployerDto.getPasswordRep())) {
 			return new ErrorResult("Parola doğrulama hatası!");
 		}
 		if (!checkIfSameWebSiteAndDomane(registerForEmployerDto.getWebSite(),registerForEmployerDto.getEmail())) {
 			return new ErrorResult("Web sitesi ile email aynı değil!");
 		}
-		Employer employer = setEmployer(registerForEmployerDto);
+		var employer=setEmployer(registerForEmployerDto);
 		employerService.add(employer);
 		String code = VerificationManager.sendCode();
-		verificationCodeRecord(code, employer.getUserId(),registerForEmployerDto.getEmail());                                                                             
+		verificationCodeRecord(code, employer.getId(),employer.getEmail());                                                                             
 		return new SuccessResult("Kayıt olundu!");
+	}
+	
+	private Employer setEmployer(RegisterForEmployerDto registerForEmployerDto) {
+		var employer=new Employer();
+		employer.setEmail(registerForEmployerDto.getEmail());
+		employer.setPassword(registerForEmployerDto.getPassword());
+		employer.setCompanyName(registerForEmployerDto.getCompanyName());
+		employer.setPhoneNumber(registerForEmployerDto.getPhoneNumber());
+		employer.setWebAddress(registerForEmployerDto.getWebSite());
+		employer.setActivated(true);
+		return employer;
 	}
 	
 	private boolean checkIfNullAreaForEmployer(RegisterForEmployerDto registerForEmployerDto) {
@@ -93,7 +105,7 @@ public class AuthManager implements AuthService{
 		return false;
 	}
 	private boolean checkIfSameWebSiteAndDomane(String webSite,String email) {
-		if (webSite!=email) {
+		if (!webSite.equals(email)){
 			return false;
 		}
 		return true;
@@ -105,18 +117,11 @@ public class AuthManager implements AuthService{
 		}
 		return false;
 	}
-	private Employer setEmployer(RegisterForEmployerDto registerForEmployerDto) {
-		Employer employer=new Employer();
-		employer.setWebAddress(registerForEmployerDto.getWebSite());
-		employer.setCompanyName(registerForEmployerDto.getCompanyName());
-		employer.setPhoneNumber(Long.parseLong(registerForEmployerDto.getPhoneNumber())); 
-		return employer;
-	}
 	
 	private boolean checkIfNullAreaForJobSeeker(RegisterForJobSeekerDto registerForJobSeekerDto) {
 		if (registerForJobSeekerDto.getEmail()!=null && registerForJobSeekerDto.getFirstName()!=null && registerForJobSeekerDto.getLastName()!=null
 				&& registerForJobSeekerDto.getIdentityNumber()!=null && registerForJobSeekerDto.getBirthDate()!=null && registerForJobSeekerDto.getPassword()!=null
-				&& registerForJobSeekerDto.getPasswordRep()!=null) {
+				&& registerForJobSeekerDto!=null) {
 			return true;
 		}
 		return false;
@@ -134,20 +139,22 @@ public class AuthManager implements AuthService{
 		}
 		return false;
 	}
-	
-	private JobSeeker setJobSeeker(RegisterForJobSeekerDto registerForJobSeekerDto) {
-		JobSeeker jobSeeker=new JobSeeker();
-		jobSeeker.setIdentityNumber(registerForJobSeekerDto.getIdentityNumber());
-		jobSeeker.setFirstName(registerForJobSeekerDto.getFirstName());
-		jobSeeker.setLastName(registerForJobSeekerDto.getLastName());
-		jobSeeker.setBirthDate(registerForJobSeekerDto.getBirthDate());
-		return jobSeeker;
-	}
+
 	private void verificationCodeRecord(String code,int userId,String email) {
 		ActivationCode activationCode=new ActivationCode(userId,code,LocalDate.now());
 		this.verificationCodeService.add(activationCode);
 		System.out.println("Doğrulama kodu "+email+" adresine gönderildi.");
 	}
 
+	private JobSeeker setJobSeeker(RegisterForJobSeekerDto registerForJobSeekerDto) {
+		var jobSeeker=new JobSeeker();
+		jobSeeker.setEmail(registerForJobSeekerDto.getEmail());
+		jobSeeker.setPassword(registerForJobSeekerDto.getPassword());
+		jobSeeker.setFirstName(registerForJobSeekerDto.getFirstName());
+		jobSeeker.setLastName(registerForJobSeekerDto.getLastName());
+		jobSeeker.setIdentityNumber(registerForJobSeekerDto.getIdentityNumber());
+		jobSeeker.setBirthDate(registerForJobSeekerDto.getBirthDate());
+		return jobSeeker;
+	}
 	
 }

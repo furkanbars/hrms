@@ -14,5 +14,4 @@ public class RegisterForEmployerDto {
 	private String phoneNumber;
 	private String password;
 	private String passwordRep;
-	
 }

@@ -2,6 +2,7 @@ package hrms.hrmsProject.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,12 +22,12 @@ public class AuthController {
 	}
 	
 	@PostMapping("/registerEmployer")
-	public Result registerForEmployer(RegisterForEmployerDto registerForEmployerDto) {
+	public Result registerForEmployer(@RequestBody RegisterForEmployerDto registerForEmployerDto) {
 		return authService.registerByEmployer(registerForEmployerDto);
 	}
 	
 	@PostMapping("/registerJobSeeker")
-	public Result registerForJobSeeker(RegisterForJobSeekerDto registerForJobSeekerDto) {
+	public Result registerForJobSeeker(@RequestBody RegisterForJobSeekerDto registerForJobSeekerDto) {
 		return authService.registerByJobSeeker(registerForJobSeekerDto);
 	}
 }

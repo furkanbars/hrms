@@ -37,6 +37,8 @@ public class ActivationCode {
 	private LocalDate confirmedDate=LocalDate.now();
 	
 	public ActivationCode(int userId,String activationCode,LocalDate date){
-		
+		this.userId=userId;
+		this.activationCode=activationCode;
+		this.confirmedDate=date;
 	}
 }
