@@ -127,7 +127,7 @@ public class AuthManager implements AuthService{
 		return false;
 	}
 	
-	private boolean checkIfRealPerson(String identityNumber,String firstName,String lastName,LocalDate date) {
+	private boolean checkIfRealPerson(String identityNumber,String firstName,String lastName,String date) {
 		if (mernisCheckService.validate(identityNumber, firstName, lastName, date)) {
 			return true;
 		}
