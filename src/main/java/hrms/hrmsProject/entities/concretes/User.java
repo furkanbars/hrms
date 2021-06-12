@@ -10,6 +10,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.sun.istack.NotNull;
 
@@ -38,6 +39,7 @@ public class User {
 	@Column(name = "password")
 	@NotNull
 	@NotBlank
+	@Size(min = 6,max = 16,message = "Şifre en az 6, en fazla 16 karakter olabilir.")
 	private String password;
 	
 }

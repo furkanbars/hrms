@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hrms.hrmsProject.business.abstracts.CityService;
+import hrms.hrmsProject.business.constants.ProjectMessages;
 import hrms.hrmsProject.core.utilities.Results.DataResult;
 import hrms.hrmsProject.core.utilities.Results.ErrorDataResult;
+import hrms.hrmsProject.core.utilities.Results.Result;
 import hrms.hrmsProject.core.utilities.Results.SuccessDataResult;
+import hrms.hrmsProject.core.utilities.Results.SuccessResult;
 import hrms.hrmsProject.dataAccess.abstracts.CityDao;
 import hrms.hrmsProject.entities.concretes.City;
 import lombok.var;
@@ -28,7 +31,13 @@ public class CityManager implements CityService{
 		if (result!=null) {
 			return new SuccessDataResult<List<City>>(result,"Şehirler listelendi.");
 		}
-		return new ErrorDataResult<List<City>>("Şehirler listelenemedi!");
+		return new ErrorDataResult<List<City>>(ProjectMessages.cantListedCities);
+	}
+
+	@Override
+	public Result add(City city) {
+		this.cityDao.save(city);
+		return new SuccessResult(ProjectMessages.addedCity);
 	}
 	
 }

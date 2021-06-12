@@ -3,6 +3,7 @@ package hrms.hrmsProject.entities.concretes;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,16 +51,16 @@ public class Cv {
 	private String image;
 	
 	@JoinColumn(name = "job_seeker_id")
-	@ManyToOne()
+	@ManyToOne(targetEntity = JobSeeker.class)
 	private JobSeeker jobSeeker;
 	
-	@OneToMany(mappedBy = "cv")
+	@OneToMany(mappedBy = "cv",cascade = CascadeType.ALL)
 	private List<Experience> experiences;
 	
-	@OneToMany(mappedBy = "cv")
+	@OneToMany(mappedBy = "cv",cascade = CascadeType.ALL)
 	private List<Technology> technologies;
 	
-	@OneToMany(mappedBy = "cv")
+	@OneToMany(mappedBy = "cv",cascade = CascadeType.ALL)
 	private List<Education> educations;
 	
 }

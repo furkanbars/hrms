@@ -1,6 +1,6 @@
 package hrms.hrmsProject.entities.concretes;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -52,14 +50,13 @@ public class JobAdvertisement {
 	@Column(name = "number_of_position")
 	private short numberOfPosition;
 	
-	@UpdateTimestamp
 	@Column(name = "last_date")
 	private Date lastDate;
 	
 	@Column(name = "is_active")
 	private boolean isActive;
 	
-	@UpdateTimestamp
 	@Column(name = "created_date")
 	private Date createdDate;
+
 }

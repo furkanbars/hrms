@@ -14,6 +14,7 @@ import hrms.hrmsProject.business.abstracts.JobAdvertisementService;
 import hrms.hrmsProject.core.utilities.Results.DataResult;
 import hrms.hrmsProject.core.utilities.Results.Result;
 import hrms.hrmsProject.entities.concretes.JobAdvertisement;
+import hrms.hrmsProject.entities.concretes.dtos.JobAdvertisementDto;
 
 @RestController
 @RequestMapping("/api/jobadvertisements")
@@ -31,8 +32,8 @@ public class JobAdvertisementsController {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestBody JobAdvertisement jobAdvertisement) {
-		return this.jobAdvertisementService.add(jobAdvertisement);
+	public Result add(@RequestBody JobAdvertisementDto jobAdvertisementDto) {
+		return this.jobAdvertisementService.add(jobAdvertisementDto);
 	}
 	
 	@GetMapping("/getbyactive")

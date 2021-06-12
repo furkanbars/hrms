@@ -11,22 +11,27 @@ import hrms.hrmsProject.core.utilities.Results.ErrorDataResult;
 import hrms.hrmsProject.core.utilities.Results.Result;
 import hrms.hrmsProject.core.utilities.Results.SuccessDataResult;
 import hrms.hrmsProject.core.utilities.Results.SuccessResult;
+import hrms.hrmsProject.core.utilities.dtoConvertor.DtoConvertorService;
 import hrms.hrmsProject.dataAccess.abstracts.JobAdvertisementDao;
 import hrms.hrmsProject.entities.concretes.JobAdvertisement;
+import hrms.hrmsProject.entities.concretes.dtos.JobAdvertisementDto;
 import lombok.var;
 
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService{
 	private JobAdvertisementDao jobAdvertisementDao;
+	private DtoConvertorService dtoConvertor;
 	
 	@Autowired
-	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao) {
+	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao, DtoConvertorService dtoConvertor) {
 		this.jobAdvertisementDao=jobAdvertisementDao;
+		this.dtoConvertor=dtoConvertor;
 	}
 	
 	@Override
-	public Result add(JobAdvertisement jobAdvertisement) {
-		this.jobAdvertisementDao.save(jobAdvertisement);
+	public Result add(JobAdvertisementDto jobAdvertisementDto) {
+		this.jobAdvertisementDao.save((JobAdvertisement)this.dtoConvertor.dtoClassConvertor(jobAdvertisementDto, JobAdvertisement.class));
+		
 		return new SuccessResult("İş ilanı eklendi.");
 	}
 
