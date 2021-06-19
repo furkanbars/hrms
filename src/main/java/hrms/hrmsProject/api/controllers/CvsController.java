@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hrms.hrmsProject.business.abstracts.CvService;
-import hrms.hrmsProject.entities.concretes.dtos.AddForCvDto;
+import hrms.hrmsProject.entities.concretes.Cv;
 
 @RestController
 @RequestMapping("/api/cvs")
@@ -25,9 +25,9 @@ public class CvsController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody AddForCvDto cvDto){
+	public ResponseEntity<?> add(@Valid @RequestBody Cv cv){
 		
-		return ResponseEntity.ok(this.cvService.add(cvDto)); 
+		return ResponseEntity.ok(this.cvService.add(cv)); 
 	}
 	
 	@GetMapping("/getall")

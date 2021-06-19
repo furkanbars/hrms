@@ -11,26 +11,22 @@ import hrms.hrmsProject.core.utilities.Results.DataResult;
 import hrms.hrmsProject.core.utilities.Results.Result;
 import hrms.hrmsProject.core.utilities.Results.SuccessDataResult;
 import hrms.hrmsProject.core.utilities.Results.SuccessResult;
-import hrms.hrmsProject.core.utilities.dtoConvertor.DtoConvertorService;
 import hrms.hrmsProject.dataAccess.abstracts.CvDao;
 import hrms.hrmsProject.entities.concretes.Cv;
-import hrms.hrmsProject.entities.concretes.dtos.AddForCvDto;
 
 @Service
 public class CvManager implements CvService{
 	private CvDao cvDao;
-	private DtoConvertorService dtoConvertor;
 	
 	@Autowired
-	public CvManager(CvDao cvDao,DtoConvertorService dtoConvertor) {
+	public CvManager(CvDao cvDao) {
 		super();
 		this.cvDao=cvDao;
-		this.dtoConvertor=dtoConvertor;
 	}
 
 	@Override
-	public Result add(AddForCvDto cvDto) {
-		this.cvDao.save((Cv)this.dtoConvertor.dtoClassConvertor(cvDto, Cv.class));
+	public Result add(Cv cv) {
+		this.cvDao.save(cv);
 		return new SuccessResult(ProjectMessages.addedCv);
 	}
 

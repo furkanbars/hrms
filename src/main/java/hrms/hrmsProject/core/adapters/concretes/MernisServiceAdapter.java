@@ -1,8 +1,8 @@
-package hrms.hrmsProject.core.utilities.adapters.concretes;
+package hrms.hrmsProject.core.adapters.concretes;
 
 import org.springframework.stereotype.Service;
 
-import hrms.hrmsProject.core.utilities.adapters.abstracts.MernisCheckService;
+import hrms.hrmsProject.core.adapters.abstracts.MernisCheckService;
 import tr.gov.nvi.tckimlik.WS.KPSPublicSoapProxy;
 
 @Service

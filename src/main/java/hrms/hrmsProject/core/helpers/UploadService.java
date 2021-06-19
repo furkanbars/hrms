@@ -1,4 +1,4 @@
-package hrms.hrmsProject.core.utilities.helpers;
+package hrms.hrmsProject.core.helpers;
 
 import org.springframework.web.multipart.MultipartFile;
 

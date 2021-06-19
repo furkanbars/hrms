@@ -1,6 +1,7 @@
 package hrms.hrmsProject.entities.concretes;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +39,7 @@ public class JobAdvertisement {
 	@JoinColumn(name = "city_id")
 	private City city;
 	
-	@Column(name = "description")
+	@Column(name = "description",length = 30000)
 	private String description;
 	
 	@Column(name = "min_salary")
@@ -46,6 +47,14 @@ public class JobAdvertisement {
 	
 	@Column(name = "max_salary")
 	private int maxSalary;
+	
+	@ManyToOne
+	@JoinColumn(name = "working_type_id")
+	private WorkType workingType;
+	
+	@ManyToOne
+	@JoinColumn(name = "working_hour_id")
+	private WorkHour workingHour;
 	
 	@Column(name = "number_of_position")
 	private short numberOfPosition;
@@ -56,7 +65,32 @@ public class JobAdvertisement {
 	@Column(name = "is_active")
 	private boolean isActive;
 	
+	@Column(name = "is_confirm")
+	private boolean isConfirm;
+	
 	@Column(name = "created_date")
 	private Date createdDate;
-
+	
+	public JobAdvertisement(int employerId,int jobId,int cityId,String description,int minSalary,int maxSalary,int workingTypeId,int workingHourId,
+			short numberOfPosition,Date lastDate,boolean isActive,boolean isConfirm) {
+		this.employer=new Employer();
+		this.job=new Job();
+		this.city=new City();
+		this.workingType=new WorkType();
+		this.workingHour=new WorkHour();
+		
+		this.employer.setId(employerId);
+		this.job.setId(jobId);
+		this.city.setId(cityId);
+		this.description=description;
+		this.minSalary=minSalary;
+		this.maxSalary=maxSalary;
+		this.workingType.setId(workingTypeId);
+		this.workingHour.setId(workingHourId);
+		this.numberOfPosition=numberOfPosition;
+		this.lastDate=lastDate;
+		this.isActive=isActive;
+		this.isConfirm=isConfirm;
+		this.createdDate=java.sql.Date.valueOf(LocalDate.now());
+	}
 }

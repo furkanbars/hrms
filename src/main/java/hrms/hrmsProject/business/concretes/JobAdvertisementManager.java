@@ -6,33 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hrms.hrmsProject.business.abstracts.JobAdvertisementService;
+import hrms.hrmsProject.business.constants.ProjectMessages;
 import hrms.hrmsProject.core.utilities.Results.DataResult;
 import hrms.hrmsProject.core.utilities.Results.ErrorDataResult;
 import hrms.hrmsProject.core.utilities.Results.Result;
 import hrms.hrmsProject.core.utilities.Results.SuccessDataResult;
 import hrms.hrmsProject.core.utilities.Results.SuccessResult;
-import hrms.hrmsProject.core.utilities.dtoConvertor.DtoConvertorService;
 import hrms.hrmsProject.dataAccess.abstracts.JobAdvertisementDao;
 import hrms.hrmsProject.entities.concretes.JobAdvertisement;
-import hrms.hrmsProject.entities.concretes.dtos.JobAdvertisementDto;
+import hrms.hrmsProject.entities.concretes.dtos.JobAdvertisementAddDto;
 import lombok.var;
 
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService{
 	private JobAdvertisementDao jobAdvertisementDao;
-	private DtoConvertorService dtoConvertor;
 	
 	@Autowired
-	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao, DtoConvertorService dtoConvertor) {
+	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao) {
 		this.jobAdvertisementDao=jobAdvertisementDao;
-		this.dtoConvertor=dtoConvertor;
 	}
 	
 	@Override
-	public Result add(JobAdvertisementDto jobAdvertisementDto) {
-		this.jobAdvertisementDao.save((JobAdvertisement)this.dtoConvertor.dtoClassConvertor(jobAdvertisementDto, JobAdvertisement.class));
+	public Result add(JobAdvertisementAddDto jobAdvertisementAddDto) {
 		
-		return new SuccessResult("İş ilanı eklendi.");
+		var jobAdvertisement = setAdvertisement(jobAdvertisementAddDto);
+		
+		this.jobAdvertisementDao.save(jobAdvertisement);
+		return new SuccessResult(ProjectMessages.addedJobAdvertisement);
 	}
 
 	@Override
@@ -69,6 +69,23 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 			return new SuccessDataResult<List<JobAdvertisement>>(result,"Firmaya ait iş ilanları listelendi.");
 		}
 		return new ErrorDataResult<List<JobAdvertisement>>("Firmaya ait iş ilanı bulunamadı!");
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllNotConfirmed() {
+		var result=this.jobAdvertisementDao.getAllNotConfirmed();
+		if (result!=null) {
+			return new SuccessDataResult<List<JobAdvertisement>>(result);
+		}
+		return new ErrorDataResult<List<JobAdvertisement>>(ProjectMessages.noData);
+	}
+	
+	private JobAdvertisement setAdvertisement(JobAdvertisementAddDto jobAdvertisementAddDto) {
+		JobAdvertisement jobAdvertisement=new JobAdvertisement(jobAdvertisementAddDto.getEmployerId(),jobAdvertisementAddDto.getJobId(),
+				jobAdvertisementAddDto.getCityId(),jobAdvertisementAddDto.getDescription(),jobAdvertisementAddDto.getMinSalary(),jobAdvertisementAddDto.getMaxSalary(),
+				jobAdvertisementAddDto.getWorkingTypeId(),jobAdvertisementAddDto.getWorkingHourId(),jobAdvertisementAddDto.getNumberOfPosition(),
+				jobAdvertisementAddDto.getLastDate(),jobAdvertisementAddDto.isActive(),jobAdvertisementAddDto.isConfirm());
+		return jobAdvertisement;
 	}
 
 }

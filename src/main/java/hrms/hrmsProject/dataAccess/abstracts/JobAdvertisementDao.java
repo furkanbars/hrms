@@ -19,5 +19,8 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 	
 	List<JobAdvertisement> getByEmployer_Id(int userId);
 	
+	@Query("From JobAdvertisement where isConfirm=false Order By lastDate ASC")
+	List<JobAdvertisement> getAllNotConfirmed();
+	
 	JobAdvertisement getById(int id);
 }
