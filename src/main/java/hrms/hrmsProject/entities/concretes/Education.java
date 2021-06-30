@@ -1,6 +1,6 @@
 package hrms.hrmsProject.entities.concretes;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -31,29 +32,44 @@ public class Education {
 	@Column(name = "id")
 	private int id;
 	
-	@NotEmpty
-	@NotBlank
-	@Column(name = "school_name")
-	private String schoolName;
+	@OneToOne
+	@JoinColumn(name = "school_id")
+	private EducationSchool school;
 	
-	@NotBlank
-	@NotEmpty
-	@Column(name = "department")
-	private String department;
+	@OneToOne()
+	@JoinColumn(name = "faculty_id")
+	private EducationFaculty faculty;
 	
 	@NotBlank
 	@NotEmpty
 	@Column(name = "start_date")
-	private LocalDate startDate;
+	private Date startDate;
 	
 	@Column(name = "end_date")
-	private LocalDate endDate;
+	private Date endDate;
 	
 	@ManyToOne(targetEntity = Cv.class)
 	@JoinColumn(name = "cv_id")
 	private Cv cv;
 	
-	@ManyToOne(targetEntity = Graduate.class)
+	@OneToOne()
 	@JoinColumn(name = "graduate_id")
-	private Graduate graduate;
+	private EducationGraduate graduate;
+	
+	public Education(int cvId,int graduateId,int schoolId,int facultyId,Date startDate,Date endDate) {
+		this.cv=new Cv();
+		this.cv.setId(cvId);
+		
+		this.graduate=new EducationGraduate();
+		this.graduate.setId(graduateId);
+		
+		this.school=new EducationSchool();
+		this.school.setId(schoolId);
+		
+		this.faculty=new EducationFaculty();
+		this.faculty.setId(facultyId);
+		
+		this.startDate=startDate;
+		this.endDate=endDate;
+	}
 }

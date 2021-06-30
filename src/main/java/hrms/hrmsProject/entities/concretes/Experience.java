@@ -1,5 +1,6 @@
 package hrms.hrmsProject.entities.concretes;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -33,19 +34,36 @@ public class Experience {
 	private String companyName;
 	
 	@Column(name = "start_date")
-	private LocalDate startDate;
+	private Date startDate;
 	
 	@Column(name = "end_date")
-	private LocalDate endDate;
+	private Date endDate;
 	
 	@Column(name = "added_date")
-	private LocalDate addedDate;
+	private Date addedDate;
 	
-	@ManyToOne(targetEntity = Job.class)
+	@ManyToOne
 	@JoinColumn(name = "position_id")
 	private Job jobPosition;
 	
 	@JoinColumn(name = "cv_id")
-	@ManyToOne(targetEntity = Cv.class)
+	@ManyToOne
 	private Cv cv;
+	
+	public Experience(String companyName,int cvId,int positionId,Date startDate,Date endDate) {
+		this.companyName=companyName;
+		this.startDate=startDate;
+		this.endDate=endDate;
+		this.addedDate=java.sql.Date.valueOf(LocalDate.now());
+		
+		this.jobPosition=new Job();
+		this.jobPosition.setId(positionId);
+		
+		this.cv=new Cv();
+		this.cv.setId(cvId);
+	}
 }
+
+
+
+

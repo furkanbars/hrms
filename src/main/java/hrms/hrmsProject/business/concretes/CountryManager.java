@@ -27,10 +27,10 @@ public class CountryManager implements CountryService{
 	@Override
 	public DataResult<List<Country>> getAll() {
 		var result=this.countryDao.findAll();
-		if (result!=null) {
+		if (!result.isEmpty()) {
 			return new SuccessDataResult<List<Country>>(result,ProjectMessages.listedCountries);
 		}
-		return new ErrorDataResult<List<Country>>(ProjectMessages.cantListedCountries);
+		return new ErrorDataResult<List<Country>>(ProjectMessages.notFoundCountry);
 	}
 
 }

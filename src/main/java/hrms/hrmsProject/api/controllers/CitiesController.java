@@ -1,7 +1,5 @@
 package hrms.hrmsProject.api.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hrms.hrmsProject.business.abstracts.CityService;
-import hrms.hrmsProject.core.utilities.Results.DataResult;
 import hrms.hrmsProject.entities.concretes.City;
+import lombok.var;
 
 @CrossOrigin
 @RestController
@@ -27,12 +25,29 @@ public class CitiesController {
 	}
 	
 	@GetMapping("/getall")
-	public DataResult<List<City>> getAll(){
-		return this.cityService.getAll();
+	public ResponseEntity<?> getAll(){
+		var result = this.cityService.getAll();
+		if (result.isSuccess()) {
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.badRequest().body(result);
 	}
 	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@RequestBody City city){
-		return ResponseEntity.ok(cityService.add(city));
+		var result = this.cityService.add(city);
+		if (result.isSuccess()) {
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.badRequest().body(result);
+	}
+	
+	@GetMapping("/getbycountryid")
+	public ResponseEntity<?> getByCountryId(int id){
+		var result = this.cityService.getByCountryId(id);
+		if (result.isSuccess()) {
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.badRequest().body(result);
 	}
 }

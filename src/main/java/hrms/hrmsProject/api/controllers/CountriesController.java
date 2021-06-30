@@ -12,11 +12,11 @@ import hrms.hrmsProject.business.abstracts.CountryService;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/countries")
-public class CountryController {
+public class CountriesController {
 	private CountryService countryService;
 	
 	@Autowired
-	public CountryController(CountryService countryService) {
+	public CountriesController(CountryService countryService) {
 		this.countryService=countryService;
 	}
 	

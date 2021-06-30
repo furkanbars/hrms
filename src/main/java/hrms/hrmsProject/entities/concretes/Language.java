@@ -1,5 +1,6 @@
 package hrms.hrmsProject.entities.concretes;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -40,9 +41,18 @@ public class Language {
 	private int languageLevel;
 	
 	@Column(name = "added_date")
-	private LocalDate addedDate;
+	private Date addedDate;
 	
 	@ManyToOne(targetEntity = Cv.class)
 	@JoinColumn(name = "cv_id")
 	private Cv cv;
+	
+	public Language(int cvId,String languageName,int languageLevel) {
+		this.cv=new Cv();
+		this.cv.setId(cvId);
+		
+		this.languageName=languageName;
+		this.languageLevel=languageLevel;
+		this.addedDate=java.sql.Date.valueOf(LocalDate.now());
+	}
 }

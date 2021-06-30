@@ -7,23 +7,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hrms.hrmsProject.business.abstracts.WorkTypeService;
+import hrms.hrmsProject.business.abstracts.WorkHourService;
 import lombok.var;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/workingtypes")
-public class WorkTypeController {
-	private WorkTypeService workTypeService;
+@RequestMapping("/api/workinghours")
+public class WorkHoursController {
+	private WorkHourService workHourService;
 	
 	@Autowired
-	public WorkTypeController(WorkTypeService workTypeService) {
-		this.workTypeService=workTypeService;
+	public WorkHoursController(WorkHourService workHourService) {
+		this.workHourService=workHourService;
 	}
 	
 	@GetMapping("/getall")
 	public ResponseEntity<?> getAll(){
-		var result=this.workTypeService.getAll();
+		var result=this.workHourService.getAll();
 		if (result.isSuccess()) {
 			return ResponseEntity.ok(result);
 		}

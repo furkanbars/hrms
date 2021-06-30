@@ -1,18 +1,29 @@
 package hrms.hrmsProject.core.utilities.dtoConvertor;
 
-import org.modelmapper.ModelMapper;
+import java.util.List;
+import java.util.stream.Collectors;
 
-//@Service
-public class DtoConvertorManager{
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class DtoConvertorManager implements DtoConvertorService{
 	private ModelMapper modelMapper;
 	
-	public DtoConvertorManager(ModelMapper modelMapper) {
-		this.modelMapper=modelMapper;
+	@Autowired
+	public DtoConvertorManager() {
+		this.modelMapper=new ModelMapper();
 	}
 	
-//@Override
+    @Override
 	public <T> Object dtoClassConvertor(Object source, Class<T> baseClass) {
 		return modelMapper.map(source, baseClass);
 	}
+
+    @Override
+	public <S, T> List<T> dtoConvertor(List<S> s, Class<T> targetClass) {
+    	return s.stream().map(element -> modelMapper.map(element, targetClass)).collect(Collectors.toList());
+    }
 
 }

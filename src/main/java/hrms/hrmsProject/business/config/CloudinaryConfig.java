@@ -18,8 +18,8 @@ public class CloudinaryConfig {
 	@Value("${cld.secret-key}")
 	String apiSecretKey;
 	
-	@Bean
-	public Cloudinary cloudinaryUser() {
+	@Bean(name = "cloudinaryUser")
+	public Cloudinary cloudinaryUser()  throws Exception{
 		return new Cloudinary(ObjectUtils.asMap(
 					"cloud_name","dcnqvolg9",
 					"api_key",apiAccessKey,
@@ -27,8 +27,7 @@ public class CloudinaryConfig {
 				));
 	}
 	
-	@Bean
-	public UploadService cloudinaryService() {
+	public UploadService cloudinaryService() throws Exception{
 		return new CloudinaryUploadManager(cloudinaryUser());
 	}
 }

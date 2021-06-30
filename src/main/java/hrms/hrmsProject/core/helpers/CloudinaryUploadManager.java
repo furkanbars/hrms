@@ -18,9 +18,10 @@ import hrms.hrmsProject.core.utilities.Results.SuccessDataResult;
 public class CloudinaryUploadManager implements UploadService{
 	private Cloudinary cloudinary;
 	
-	@Autowired
+	
     public CloudinaryUploadManager(Cloudinary cloudinary) {
-			this.cloudinary=cloudinary;
+		super();
+		this.cloudinary=cloudinary;
 	}
 	
 	@SuppressWarnings("rawtypes")

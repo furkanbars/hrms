@@ -1,5 +1,6 @@
 package hrms.hrmsProject.entities.concretes;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -33,9 +34,17 @@ public class Technology {
 	private String technologyName;
 	
 	@Column(name = "added_date")
-	private LocalDate addedDate;
+	private Date addedDate;
 	
 	@JoinColumn(name = "cv_id")
 	@ManyToOne(targetEntity = Cv.class)
 	private Cv cv;
+	
+	public Technology(int cvId, String technologyName) {
+		this.cv=new Cv();
+		this.cv.setId(cvId);
+		
+		this.technologyName=technologyName;
+		this.addedDate=java.sql.Date.valueOf(LocalDate.now());
+	}
 }

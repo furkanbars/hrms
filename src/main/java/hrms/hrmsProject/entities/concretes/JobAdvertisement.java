@@ -39,7 +39,10 @@ public class JobAdvertisement {
 	@JoinColumn(name = "city_id")
 	private City city;
 	
-	@Column(name = "description",length = 30000)
+	@Column(name = "title")
+	private String title;
+	
+	@Column(name = "description")
 	private String description;
 	
 	@Column(name = "min_salary")
@@ -71,7 +74,7 @@ public class JobAdvertisement {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
-	public JobAdvertisement(int employerId,int jobId,int cityId,String description,int minSalary,int maxSalary,int workingTypeId,int workingHourId,
+	public JobAdvertisement(int employerId,int jobId,int cityId,String title,String description,int minSalary,int maxSalary,int workingTypeId,int workingHourId,
 			short numberOfPosition,Date lastDate,boolean isActive,boolean isConfirm) {
 		this.employer=new Employer();
 		this.job=new Job();
@@ -82,6 +85,7 @@ public class JobAdvertisement {
 		this.employer.setId(employerId);
 		this.job.setId(jobId);
 		this.city.setId(cityId);
+		this.title=title;
 		this.description=description;
 		this.minSalary=minSalary;
 		this.maxSalary=maxSalary;

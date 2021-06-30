@@ -36,5 +36,7 @@ public class JobAdvertisementAddDto {
 	
 	private Date lastDate;
 	
+	private String title;
+	
 	private String description;
 }

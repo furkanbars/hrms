@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -47,9 +48,6 @@ public class Cv {
 	@Column(name = "active")
 	private boolean isActive;
 	
-	@Column(name = "image")
-	private String image;
-	
 	@JoinColumn(name = "job_seeker_id")
 	@ManyToOne(targetEntity = JobSeeker.class)
 	private JobSeeker jobSeeker;
@@ -62,5 +60,11 @@ public class Cv {
 	
 	@OneToMany(mappedBy = "cv",cascade = CascadeType.ALL)
 	private List<Education> educations;
+	
+	@OneToMany(mappedBy = "cv",cascade = CascadeType.ALL)
+	private List<Language> languages;
+	
+	@OneToOne(mappedBy = "cv")
+	private CvImage cvImage;
 	
 }

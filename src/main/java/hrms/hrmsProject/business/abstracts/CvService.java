@@ -9,4 +9,6 @@ import hrms.hrmsProject.entities.concretes.Cv;
 public interface CvService {
 	Result add(Cv cv);
 	DataResult<List<Cv>> getAll();
+	DataResult<Cv> getById(int id);
+	DataResult<Cv> getByJobSeekerId(int userId);
 }
