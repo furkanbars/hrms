@@ -123,7 +123,7 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllSorted(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize,Sort.by(Sort.Direction.DESC,"lastDate"));
-		var result = this.jobAdvertisementDao.findAll(pageable).getContent();
+		var result = this.jobAdvertisementDao.findByIsActiveTrueAndIsConfirmTrue(pageable);
 		if (!result.isEmpty()) {
 			return new SuccessDataResult<List<JobAdvertisement>>(result,ProjectMessages.listedJobAdvertisementWithPageable);
 		}

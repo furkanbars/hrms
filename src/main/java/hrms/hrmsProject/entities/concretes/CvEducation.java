@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","cv"})
-public class Education {
+public class CvEducation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -56,7 +56,11 @@ public class Education {
 	@JoinColumn(name = "graduate_id")
 	private EducationGraduate graduate;
 	
-	public Education(int cvId,int graduateId,int schoolId,int facultyId,Date startDate,Date endDate) {
+	@OneToOne
+	@JoinColumn(name = "department_id")
+	private EducationDepartment department;
+	
+	public CvEducation(int cvId,int graduateId,int schoolId,int facultyId,int departmentId,Date startDate,Date endDate) {
 		this.cv=new Cv();
 		this.cv.setId(cvId);
 		
@@ -68,6 +72,9 @@ public class Education {
 		
 		this.faculty=new EducationFaculty();
 		this.faculty.setId(facultyId);
+		
+		this.department=new EducationDepartment();
+		department.setId(departmentId);
 		
 		this.startDate=startDate;
 		this.endDate=endDate;

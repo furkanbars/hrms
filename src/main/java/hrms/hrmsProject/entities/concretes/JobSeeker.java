@@ -2,6 +2,8 @@ package hrms.hrmsProject.entities.concretes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -39,6 +41,10 @@ public class JobSeeker extends User{
 
 	@Column(name = "birth_date")
 	@NotNull
-	private String BirthDate;
+	private String birthDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "city_id")
+	private City city;
 	
 }

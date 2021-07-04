@@ -53,16 +53,16 @@ public class Cv {
 	private JobSeeker jobSeeker;
 	
 	@OneToMany(mappedBy = "cv",cascade = CascadeType.ALL)
-	private List<Experience> experiences;
+	private List<CvExperience> experiences;
 	
 	@OneToMany(mappedBy = "cv",cascade = CascadeType.ALL)
-	private List<Technology> technologies;
+	private List<CvTechnology> technologies;
 	
 	@OneToMany(mappedBy = "cv",cascade = CascadeType.ALL)
-	private List<Education> educations;
+	private List<CvEducation> educations;
 	
 	@OneToMany(mappedBy = "cv",cascade = CascadeType.ALL)
-	private List<Language> languages;
+	private List<CvLanguage> cvLanguages;
 	
 	@OneToOne(mappedBy = "cv")
 	private CvImage cvImage;

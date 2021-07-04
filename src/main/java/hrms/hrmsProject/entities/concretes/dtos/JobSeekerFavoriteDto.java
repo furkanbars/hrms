@@ -5,11 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CvLanguageAddDto {
-	private int id;
-	private int cvId;
-	private int languageId;
-	private int languageLevel;
+@NoArgsConstructor
+public class JobSeekerFavoriteDto {
+	private int jobSeekerId;
+	private int jobAdvertisementId;
 }

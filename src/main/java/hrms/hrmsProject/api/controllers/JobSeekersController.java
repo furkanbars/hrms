@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hrms.hrmsProject.business.abstracts.JobSeekerService;
 import hrms.hrmsProject.core.utilities.Results.DataResult;
 import hrms.hrmsProject.entities.concretes.JobSeeker;
+import lombok.var;
 
 @CrossOrigin
 @RestController
@@ -38,4 +39,14 @@ public class JobSeekersController {
 	public ResponseEntity<?> add(@Valid @RequestBody JobSeeker jobSeeker){
 		return ResponseEntity.ok(this.jobSeekerService.add(jobSeeker));
 	}
+	
+	@GetMapping("/getbyid")
+	public ResponseEntity<?> getById(int id){
+		var result = this.jobSeekerService.getById(id);
+		if (result.isSuccess()) {
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.badRequest().body(result);
+	}
+	
 }

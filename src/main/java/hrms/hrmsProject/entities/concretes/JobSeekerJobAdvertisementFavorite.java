@@ -5,26 +5,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Entity
+@Table(name = "job_seeker_job_advertisement_favorite")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "working_types")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisements"})
-public class WorkType {
+public class JobSeekerJobAdvertisementFavorite {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "work_type")
-	private String workingType;
+	@ManyToOne
+	@JoinColumn(name = "job_seeker_id")
+	private JobSeeker jobSeeker;
+	
+	@OneToOne
+	@JoinColumn(name = "job_advertisement_id")
+	private JobAdvertisement jobAdvertisement;
 }

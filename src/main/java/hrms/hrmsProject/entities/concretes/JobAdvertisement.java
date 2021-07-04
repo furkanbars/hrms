@@ -52,12 +52,12 @@ public class JobAdvertisement {
 	private int maxSalary;
 	
 	@ManyToOne
-	@JoinColumn(name = "working_type_id")
-	private WorkType workingType;
+	@JoinColumn(name = "working_place_type_id")
+	private WorkPlaceType workingPlaceType;
 	
 	@ManyToOne
-	@JoinColumn(name = "working_hour_id")
-	private WorkHour workingHour;
+	@JoinColumn(name = "working_type_id")
+	private WorkType workingType;
 	
 	@Column(name = "number_of_position")
 	private short numberOfPosition;
@@ -74,13 +74,13 @@ public class JobAdvertisement {
 	@Column(name = "created_date")
 	private Date createdDate;
 	
-	public JobAdvertisement(int employerId,int jobId,int cityId,String title,String description,int minSalary,int maxSalary,int workingTypeId,int workingHourId,
+	public JobAdvertisement(int employerId,int jobId,int cityId,String title,String description,int minSalary,int maxSalary,int workingPlaceTypeId,int workingTypeId,
 			short numberOfPosition,Date lastDate,boolean isActive,boolean isConfirm) {
 		this.employer=new Employer();
 		this.job=new Job();
 		this.city=new City();
+		this.workingPlaceType=new WorkPlaceType();
 		this.workingType=new WorkType();
-		this.workingHour=new WorkHour();
 		
 		this.employer.setId(employerId);
 		this.job.setId(jobId);
@@ -89,8 +89,8 @@ public class JobAdvertisement {
 		this.description=description;
 		this.minSalary=minSalary;
 		this.maxSalary=maxSalary;
+		this.workingPlaceType.setId(workingPlaceTypeId);
 		this.workingType.setId(workingTypeId);
-		this.workingHour.setId(workingHourId);
 		this.numberOfPosition=numberOfPosition;
 		this.lastDate=lastDate;
 		this.isActive=isActive;

@@ -2,6 +2,7 @@ package hrms.hrmsProject.dataAccess.abstracts;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,6 +27,8 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 	
 	@Query("From JobAdvertisement where isActive=true And isConfirm=false Order By lastDate ASC")
 	List<JobAdvertisement> getAllNotConfirmed();
+	
+	List<JobAdvertisement> findByIsActiveTrueAndIsConfirmTrue(Pageable pageable);
 	
 	@Modifying
 	@Query("Update JobAdvertisement set isConfirm=true where id=:id")

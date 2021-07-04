@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hrms.hrmsProject.business.abstracts.JobSeekerService;
+import hrms.hrmsProject.business.constants.ProjectMessages;
 import hrms.hrmsProject.core.utilities.Results.DataResult;
 import hrms.hrmsProject.core.utilities.Results.ErrorDataResult;
 import hrms.hrmsProject.core.utilities.Results.Result;
@@ -43,6 +44,15 @@ public class JobSeekerManager implements JobSeekerService{
 			return new SuccessDataResult<JobSeeker>(result);
 		}
 		return new ErrorDataResult<JobSeeker>("Bu TC'ye sahip veri bulunamadı!");
+	}
+
+	@Override
+	public DataResult<JobSeeker> getById(int id) {
+		var result = this.jobSeekerDao.getById(id);
+		if (result!=null) {
+			return new SuccessDataResult<JobSeeker>(result);
+		}
+		return new ErrorDataResult<JobSeeker>(ProjectMessages.noData);
 	}
 
 

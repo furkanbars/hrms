@@ -26,12 +26,10 @@ public class WorkTypeManager implements WorkTypeService{
 	@Override
 	public DataResult<List<WorkType>> getAll() {
 		var result=this.workTypeDao.findAll();
-		
 		if (result!=null) {
-			return new SuccessDataResult<List<WorkType>>(result,"İş tipleri listelendi.");
+			return new SuccessDataResult<List<WorkType>>(result);
 		}
 		return new ErrorDataResult<List<WorkType>>(ProjectMessages.noData);
-		
 	}
-
+	
 }

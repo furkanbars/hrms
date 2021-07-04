@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,50 +22,40 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
+@Table(name = "cv_languages")
 @NoArgsConstructor
-@Table(name = "cv_experiences")
+@AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","cv"})
-public class Experience {
+public class CvLanguage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "company_name")
-	private String companyName;
+	@ManyToOne
+	@JoinColumn(name = "language_id")
+	private Language language;
 	
-	@Column(name = "start_date")
-	private Date startDate;
-	
-	@Column(name = "end_date")
-	private Date endDate;
+	@Min(1)
+	@Max(5)
+	@Column(name = "language_level")
+	private int languageLevel;
 	
 	@Column(name = "added_date")
 	private Date addedDate;
 	
-	@ManyToOne
-	@JoinColumn(name = "position_id")
-	private Job jobPosition;
-	
+	@ManyToOne(targetEntity = Cv.class)
 	@JoinColumn(name = "cv_id")
-	@ManyToOne
 	private Cv cv;
 	
-	public Experience(String companyName,int cvId,int positionId,Date startDate,Date endDate) {
-		this.companyName=companyName;
-		this.startDate=startDate;
-		this.endDate=endDate;
-		this.addedDate=java.sql.Date.valueOf(LocalDate.now());
-		
-		this.jobPosition=new Job();
-		this.jobPosition.setId(positionId);
-		
+	public CvLanguage(int cvId,int languageId,int languageLevel) {
 		this.cv=new Cv();
 		this.cv.setId(cvId);
+		
+		this.language=new Language();
+		this.language.setId(languageId);
+		
+		this.languageLevel=languageLevel;
+		this.addedDate=java.sql.Date.valueOf(LocalDate.now());
 	}
 }
-
-
-
-

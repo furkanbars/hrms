@@ -14,6 +14,7 @@ public class ProjectMessages {
 	 public static String addedEmployer = "İş veren başarıyla eklendi.";
 	 public static String addedJobPosition = "İş pozisyonu başarıyla eklendi.";
 	 public static String addedImage = "Resim başarıyla yüklendi.";
+	 public static String addedFavorite = "Favorilere başarıyla eklendi.";
 	 
 	 public static String listedCountries="Ülkeler listelendi.";
 	 public static String listedJobAdvertisementByEmployer="Firmaya ait iş ilanları listelendi.";
@@ -26,6 +27,8 @@ public class ProjectMessages {
 	 public static String listedLanguagesByCv = "Cv'ye ait diller listelendi.";
 	 public static String listedActiveConfirmLastDateJobAdvertisement = "Aktif ve onaylanmış iş ilanları son tarihe göre listelendi.";
 	 public static String listedJobAdvertisementWithPageable = "İş ilanları sayfalara göre listelendi.";
+	 public static String listedFavorite = "İlgili id'ye sahip iş arayanın favorileri listelendi.";
+	 public static String listedEducation = "Eğitim başarıyla listelendi.";
 	 
 	 public static String notFoundCity="Şehir bulunamadı!";
 	 public static String notFoundCountry="Ülke bulunamadı!";
@@ -45,9 +48,13 @@ public class ProjectMessages {
 	 public static String updatedEducation = "Eğitim bilgisi güncellendi.";
 	 public static String updatedJobAdvertisementStatus = "iş ilanı aktif hale getirildi.";
 	 public static String updatedIsActiveFalse = "İş ilanı pasif hale getirildi.";
+	 public static String updatedExperiance = "Deneyim başarıyla güncellendi.";
+	 public static String updatedLanguage = "Dil bilgisi başarıyla güncellendi";
+	 public static String updatedTechnology = "Teknoloji başarıyla güncellendi.";
 	 
 	 public static String deletedEducation = "Eğitim bilgisi başarıyla silindi.";
 	 public static String deletedExperience = "Tecrübe bilgisi başarıyla silindi.";
 	 public static String deletedLanguage = "Dil bilgisi başarıyla silindi.";
 	 public static String deletedTechnology = "Teknolojisi bilgisi silindi.";
+	 public static String deletedFavorite = "Favorilerden çıkarıldı.";
 }

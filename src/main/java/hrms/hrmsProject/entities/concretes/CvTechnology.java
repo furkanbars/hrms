@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","cv"})
-public class Technology {
+public class CvTechnology {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -40,7 +40,7 @@ public class Technology {
 	@ManyToOne(targetEntity = Cv.class)
 	private Cv cv;
 	
-	public Technology(int cvId, String technologyName) {
+	public CvTechnology(int cvId, String technologyName) {
 		this.cv=new Cv();
 		this.cv.setId(cvId);
 		
